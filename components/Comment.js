@@ -12,7 +12,7 @@ const Comment = ({ content, user }) => {
             height={40}
             className='rounded-full'
           />
-          <div className='ml-2 text-sm'>
+          <div className='ml-2 text-sm sm:ml-6 sm:text-base'>
             <p className='font-semibold text-indigo-900'>{user.name}</p>
             <p>@{user.username}</p>
           </div>
@@ -22,7 +22,7 @@ const Comment = ({ content, user }) => {
         </p>
       </div>
       <div className='my-6'>
-        <p className='text-sm'>{content}</p>
+        <p className='text-sm sm:ml-16 sm:text-base'>{content}</p>
       </div>
     </div>
   )
