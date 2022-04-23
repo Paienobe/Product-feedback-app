@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 const FeedbackHeader = () => {
   return (
-    <div className='p-4 py-2 bg-indigo-900 text-white flex items-center justify-between text-sm'>
+    <div className='p-4 py-2 bg-indigo-900 text-white flex items-center justify-between text-sm absolute left-0 right-0 top-0 sm:mx-8 sm:rounded-lg sm:p-5 '>
       <div className='flex items-center justify-between'>
         <p className='mr-4 font-light'>Sort by:</p>
         <div className='flex items-center'>

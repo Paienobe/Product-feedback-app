@@ -24,11 +24,15 @@ export default function Home() {
 
       <div>
         <Header />
-        <FeedbackHeader />
-        <div className='p-4'>
-          {feedbackData.productRequests.sort(compareUpvotes).map((request) => {
-            return <Feedback key={request.id} {...request} />
-          })}
+        <div className='p-4 lg:w-4/5 lg:ml-auto relative lg:mt-8'>
+          <FeedbackHeader />
+          <div className='mt-14 sm:mt-20 sm:mx-4'>
+            {feedbackData.productRequests
+              .sort(compareUpvotes)
+              .map((request) => {
+                return <Feedback key={request.id} {...request} />
+              })}
+          </div>
         </div>
       </div>
     </div>

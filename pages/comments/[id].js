@@ -12,9 +12,8 @@ const CommentsPage = () => {
   const selectedFeedback = feedbackData.productRequests.find((item) => {
     return item.id.toString() === router.query.id
   })
-  console.log()
   return (
-    <div className='min-h-screen bg-indigo-100 p-4 text-indigo-900'>
+    <div className='min-h-screen bg-indigo-100 p-4 text-indigo-900 sm:p-8'>
       <div className='flex items-center justify-between font-semibold text-sm'>
         <Link href='/'>
           <div className='flex items-center hover:cursor-pointer'>
