@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { GoPrimitiveDot } from 'react-icons/go'
+import Link from 'next/link'
 
 const Header = () => {
   const category = ['All', 'UI', 'UX', 'Enhancement', 'Bug', 'Feature']
@@ -74,9 +75,11 @@ const Header = () => {
           <div className='bg-white  text-indigo-900 p-2 rounded-lg mt-4 pb-8 sm:w-1/2 sm:h-full sm:m-0 '>
             <div className='flex items-center justify-between pt-2'>
               <h2 className='text-lg font-bold'>Roadmap</h2>
-              <p className='text-xs text-indigo-600 underline font-semibold'>
-                View
-              </p>
+              <Link href='/roadmap'>
+                <p className='text-xs text-indigo-600 underline font-semibold hover:cursor-pointer'>
+                  View
+                </p>
+              </Link>
             </div>
             <div className='text-sm mt-3'>
               <div className='flex items-center justify-between'>

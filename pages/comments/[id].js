@@ -13,7 +13,7 @@ const CommentsPage = () => {
     return item.id.toString() === router.query.id
   })
   return (
-    <div className='min-h-screen bg-indigo-100 p-4 text-indigo-900 sm:p-8'>
+    <div className='min-h-screen bg-indigo-100 p-4 text-indigo-900 sm:p-8 lg:px-36'>
       <div className='flex items-center justify-between font-semibold text-sm'>
         <Link href='/'>
           <div className='flex items-center hover:cursor-pointer'>

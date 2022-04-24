@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const FeedbackHeader = () => {
   return (
@@ -11,10 +12,11 @@ const FeedbackHeader = () => {
           <Image src='/shared/icon-arrow-down.svg' width={15} height={10} />
         </div>
       </div>
-
-      <button className='p-2 bg-purple-600 rounded-lg text-sm font-medium'>
-        Add Feedback
-      </button>
+      <Link href='/newfeedback'>
+        <button className='p-2 bg-purple-600 rounded-lg text-sm font-medium'>
+          Add Feedback
+        </button>
+      </Link>
     </div>
   )
 }
