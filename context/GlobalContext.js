@@ -7,7 +7,7 @@ const AppProvider = ({ children }) => {
   const [feedbackData, setFeedbackData] = useState(data)
 
   return (
-    <AppContext.Provider value={{ feedbackData }}>
+    <AppContext.Provider value={{ feedbackData, setFeedbackData }}>
       {children}
     </AppContext.Provider>
   )

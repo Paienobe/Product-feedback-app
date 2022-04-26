@@ -1,9 +1,38 @@
-const CommentInput = () => {
+import { useState } from 'react'
+import { useGlobalContext } from '../context/GlobalContext'
+
+const CommentInput = ({ id }) => {
+  const [commentText, setCommentText] = useState('')
+  const { feedbackData } = useGlobalContext()
+  // console.log({
+  //   ...feedbackData,
+  //   productRequests: [
+  //     feedbackData.productRequests.find((request) => {
+  //       return request.id === id
+  //     }),
+  //   ],
+  // })
+
+  const addComment = (e) => {
+    e.preventDefault()
+    const productRequestToBeCommentedOn = feedbackData.productRequests.find(
+      (request) => {
+        return request.id === id
+      }
+    )
+    const requestComments = productRequestToBeCommentedOn.comments
+    // set
+  }
+
   return (
     <div className='mt-4 bg-white p-4 rounded-lg'>
       <h2 className='font-bold text-indigo-900'>Add Comment</h2>
       <textarea
         placeholder='Type your comment here...'
+        value={commentText}
+        onChange={(e) => {
+          setCommentText(e.target.value)
+        }}
         className='p-4 bg-indigo-100 w-full rounded-lg mt-6 mb-4 outline-none placeholder:text-indigo-900 placeholder:text-sm placeholder:opacity-70'
       ></textarea>
       <div className='flex items-center justify-between'>
