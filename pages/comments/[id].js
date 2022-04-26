@@ -32,7 +32,7 @@ const CommentsPage = () => {
         {selectedFeedback?.comments && (
           <CommentsContainer comments={selectedFeedback?.comments} />
         )}
-        <CommentInput />
+        <CommentInput id={selectedFeedback?.id} />
       </div>
     </div>
   )
