@@ -14,10 +14,6 @@ const NewFeedback = () => {
   const [showCategories, setShowCategories] = useState(false)
   const router = useRouter()
 
-  useEffect(() => {
-    // router.push('/')
-  }, [])
-
   return (
     <div className='p-4 bg-indigo-100 min-h-screen text-indigo-800 lg:p-10'>
       <Link href='/'>
@@ -42,7 +38,7 @@ const NewFeedback = () => {
                   comments: [],
                   description: formRef?.current?.details?.value,
                   id: new Date().getTime(),
-                  status: 'planned',
+                  status: '',
                   title: formRef?.current?.title?.value,
                   upvotes: 0,
                 },
