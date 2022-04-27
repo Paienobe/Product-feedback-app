@@ -18,9 +18,13 @@ const AppProvider = ({ children }) => {
     dispatch({ type: 'UPVOTE', payload: { id, type } })
   }
 
+  const addComment = (id, message) => {
+    dispatch({ type: 'COMMENT', payload: { id, message } })
+  }
+
   return (
     <AppContext.Provider
-      value={{ ...state, addProductRequest, upvoteProductRequest }}
+      value={{ ...state, addProductRequest, upvoteProductRequest, addComment }}
     >
       {children}
     </AppContext.Provider>

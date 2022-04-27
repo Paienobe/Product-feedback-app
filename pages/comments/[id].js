@@ -9,7 +9,7 @@ import CommentInput from '../../components/CommentInput'
 const CommentsPage = () => {
   const router = useRouter()
   const { productRequests } = useGlobalContext()
-  const selectedFeedback = productRequests.find((item) => {
+  const selectedFeedback = productRequests?.find((item) => {
     return item.id.toString() === router.query.id
   })
   return (
