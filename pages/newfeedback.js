@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useGlobalContext } from '../context/GlobalContext'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 
 const NewFeedback = () => {
   const formRef = useRef(null)
-  const { feedbackData, setFeedbackData } = useGlobalContext()
+  const { feedbackData, setFeedbackData, addProductRequest } =
+    useGlobalContext()
   const categories = ['UI', 'UX', 'Enhancement', 'Bug', 'Feature']
   const [title, setTitle] = useState('')
   const [pickedCategory, setPickedCategory] = useState('')
@@ -29,21 +30,26 @@ const NewFeedback = () => {
           ref={formRef}
           onSubmit={(e) => {
             e.preventDefault()
-            setFeedbackData({
-              ...feedbackData,
-              productRequests: [
-                ...feedbackData.productRequests,
-                {
-                  category: formRef?.current?.category?.value,
-                  comments: [],
-                  description: formRef?.current?.details?.value,
-                  id: new Date().getTime(),
-                  status: '',
-                  title: formRef?.current?.title?.value,
-                  upvotes: 0,
-                },
-              ],
-            })
+            addProductRequest(
+              formRef?.current?.category?.value,
+              formRef?.current?.details?.value,
+              formRef?.current?.title?.value
+            )
+            // setFeedbackData({
+            //   ...feedbackData,
+            //   productRequests: [
+            //     ...feedbackData.productRequests,
+            //     {
+            //       category: formRef?.current?.category?.value,
+            //       comments: [],
+            //       description: formRef?.current?.details?.value,
+            //       id: new Date().getTime(),
+            //       status: '',
+            //       title: formRef?.current?.title?.value,
+            //       upvotes: 0,
+            //     },
+            //   ],
+            // })
             router.push('/')
           }}
         >

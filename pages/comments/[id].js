@@ -8,8 +8,8 @@ import CommentInput from '../../components/CommentInput'
 
 const CommentsPage = () => {
   const router = useRouter()
-  const { feedbackData } = useGlobalContext()
-  const selectedFeedback = feedbackData.productRequests.find((item) => {
+  const { productRequests } = useGlobalContext()
+  const selectedFeedback = productRequests.find((item) => {
     return item.id.toString() === router.query.id
   })
   return (

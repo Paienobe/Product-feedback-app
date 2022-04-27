@@ -5,13 +5,13 @@ import { useEffect, useState } from 'react'
 import CategoryComponent from '../components/CategoryComponent'
 
 const Roadmap = () => {
-  const { feedbackData } = useGlobalContext()
+  const { productRequests } = useGlobalContext()
   const [planned, setPlanned] = useState(true)
   const [inProgress, setInProgress] = useState(false)
   const [live, setLive] = useState(false)
 
   const chosenTab = (tab) => {
-    return feedbackData.productRequests.filter((request) => {
+    return productRequests.filter((request) => {
       return request.status === tab
     })
   }

@@ -6,7 +6,7 @@ import { useGlobalContext } from '../context/GlobalContext'
 import Feedback from '../components/Feedback'
 
 export default function Home() {
-  const { feedbackData } = useGlobalContext()
+  const { productRequests } = useGlobalContext()
   const compareUpvotes = (itemA, itemB) => {
     if (itemA.upvotes < itemB.upvotes) {
       return 1
@@ -27,7 +27,7 @@ export default function Home() {
         <div className='p-4 lg:w-4/5 lg:ml-auto relative lg:mt-8'>
           <FeedbackHeader />
           <div className='mt-14 sm:mt-20 sm:mx-4'>
-            {feedbackData.productRequests
+            {productRequests
               .sort(compareUpvotes)
               .map((request) => {
                 return <Feedback key={request.id} {...request} />
