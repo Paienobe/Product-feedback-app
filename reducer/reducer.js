@@ -52,6 +52,43 @@ const reducer = (state, action) => {
     })
     return { ...state, productRequests: newComment }
   }
+
+  if (action.type === 'REPLY') {
+    let newReply = state.productRequests.map((request) => {
+      const replyContent = request.comments.map((comment) => {
+        if (comment.id === action.payload.id) {
+          if (comment.replies) {
+            return {
+              ...comment,
+              replies: [
+                ...comment?.replies,
+                {
+                  id: new Date().getTime(),
+                  content: action.payload.message,
+                  user: state.currentUser,
+                },
+              ],
+            }
+          } else {
+            return {
+              ...comment,
+              replies: [
+                {
+                  id: new Date().getTime(),
+                  content: action.payload.message,
+                  user: state.currentUser,
+                },
+              ],
+            }
+          }
+        } else {
+          return comment
+        }
+      })
+      return { ...request, comments: replyContent }
+    })
+    return { ...state, productRequests: newReply }
+  }
 }
 
 export default reducer

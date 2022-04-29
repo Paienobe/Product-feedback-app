@@ -25,7 +25,7 @@ const Feedback = ({
         </Link>
         <p className='mt-3'>{description}</p>
         <p className='bg-indigo-100 p-2 text-indigo-700 font-semibold w-min rounded-lg text-xs my-3'>
-          {category?.charAt(0).toUpperCase() + category?.slice(1)}
+          {category?.charAt(0)?.toUpperCase() + category?.slice(1)}
         </p>
       </div>
 
