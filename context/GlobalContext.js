@@ -7,7 +7,6 @@ const AppContext = React.createContext()
 const initialState = data
 
 const AppProvider = ({ children }) => {
-  const [feedbackData, setFeedbackData] = useState(data)
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const addProductRequest = (category, details, title) => {
@@ -22,9 +21,19 @@ const AppProvider = ({ children }) => {
     dispatch({ type: 'COMMENT', payload: { id, message } })
   }
 
+  const addReplies = (id, message) => {
+    dispatch({ type: 'REPLY', payload: { id, message } })
+  }
+
   return (
     <AppContext.Provider
-      value={{ ...state, addProductRequest, upvoteProductRequest, addComment }}
+      value={{
+        ...state,
+        addProductRequest,
+        upvoteProductRequest,
+        addComment,
+        addReplies,
+      }}
     >
       {children}
     </AppContext.Provider>
