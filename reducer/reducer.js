@@ -18,7 +18,7 @@ const reducer = (state, action) => {
   }
 
   if (action.type === 'UPVOTE') {
-    let temporaryUpvote = state.productRequests.map((request) => {
+    let newUpvote = state.productRequests.map((request) => {
       if (request.id === action.payload.id) {
         if (action.payload.type === 'increase') {
           return { ...request, upvotes: request.upvotes + 1 }
@@ -29,7 +29,28 @@ const reducer = (state, action) => {
       }
       return request
     })
-    return { ...state, productRequests: temporaryUpvote }
+    return { ...state, productRequests: newUpvote }
+  }
+
+  if (action.type === 'COMMENT') {
+    let newComment = state.productRequests.map((request) => {
+      if (request.id === action.payload.id) {
+        return {
+          ...request,
+          comments: [
+            ...request.comments,
+            {
+              id: new Date().getTime(),
+              content: action.payload.message,
+              user: state.currentUser,
+            },
+          ],
+        }
+      } else {
+        return request
+      }
+    })
+    return { ...state, productRequests: newComment }
   }
 }
 
