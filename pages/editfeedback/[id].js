@@ -1,27 +1,34 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { useGlobalContext } from '../context/GlobalContext'
-import { useRef, useState } from 'react'
-import { useRouter } from 'next/router'
+import React, { useRef, useState } from 'react'
 import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useGlobalContext } from '../../context/GlobalContext'
 
-const NewFeedback = () => {
-  const formRef = useRef(null)
-  const { addProductRequest } = useGlobalContext()
-  const categories = ['UI', 'UX', 'Enhancement', 'Bug', 'Feature']
-  const [title, setTitle] = useState('')
-  const [pickedCategory, setPickedCategory] = useState('')
-  const [description, setDescription] = useState('')
-  const [showCategories, setShowCategories] = useState(false)
+const Edit = () => {
   const router = useRouter()
+
+  const { productRequests, editRequest, deleteRequest } = useGlobalContext()
+
+  const requiredData = productRequests.find((request) => {
+    return request.id === parseInt(router.query.id)
+  })
+
+  const [title, setTitle] = useState(requiredData?.title)
+  const [description, setDescription] = useState(requiredData?.description)
+  const categories = ['UI', 'UX', 'Enhancement', 'Bug', 'Feature']
+  const [pickedCategory, setPickedCategory] = useState(requiredData?.category)
+  const [showCategories, setShowCategories] = useState(false)
+
+  const formRef = useRef(null)
 
   return (
     <div className='p-4 bg-indigo-100 min-h-screen text-indigo-800 lg:p-10'>
       <Head>
-        <title>Add Request</title>
+        <title>Edit Request</title>
       </Head>
 
-      <Link href='/'>
+      <Link href={`/comments/${router.query.id}`}>
         <div className='flex items-center hover:cursor-pointer '>
           <Image src='/shared/icon-arrow-left.svg' width={12} height={10} />
           <p className='ml-3 text-indigo-900 font-semibold'>Go Back</p>
@@ -34,31 +41,36 @@ const NewFeedback = () => {
           ref={formRef}
           onSubmit={(e) => {
             e.preventDefault()
-            addProductRequest(
-              formRef?.current?.category?.value,
-              formRef?.current?.details?.value,
-              formRef?.current?.title?.value
+            editRequest(
+              requiredData.id,
+              formRef.current.title.value,
+              formRef.current.description.value,
+              formRef.current.category.value
             )
             router.push('/')
           }}
         >
           <div className='absolute -top-5'>
-            <Image src='/shared/icon-new-feedback.svg' width={50} height={50} />
+            <Image
+              src='/shared/icon-edit-feedback.svg'
+              width={50}
+              height={50}
+            />
           </div>
 
-          <h1 className='font-bold text-indigo-900'>Create New Feedback</h1>
+          <h1 className='font-bold text-indigo-900'>Edit Feedback</h1>
           <div className='text-sm mt-6'>
             <p className='font-bold'>Feedback Title</p>
             <p className='mb-4'>Add a short, descriptive headline</p>
             <input
               type='text'
               name='title'
+              className='bg-indigo-100 p-3 w-full rounded-lg'
+              required
               value={title}
               onChange={(e) => {
                 setTitle(e.target.value)
               }}
-              className='bg-indigo-100 p-3 w-full rounded-lg'
-              required
             />
           </div>
 
@@ -70,7 +82,7 @@ const NewFeedback = () => {
                 type='text'
                 name='category'
                 className='bg-indigo-100 p-3 w-full rounded-lg '
-                defaultValue={pickedCategory}
+                value={pickedCategory}
                 required
               />
               <div
@@ -113,35 +125,46 @@ const NewFeedback = () => {
               etc.
             </p>
             <textarea
-              name='details'
+              name='description'
+              required
+              className='bg-indigo-100 p-4 w-full rounded-lg'
               value={description}
               onChange={(e) => {
                 setDescription(e.target.value)
               }}
-              required
-              className='bg-indigo-100 p-4 w-full rounded-lg'
             ></textarea>
           </div>
 
-          <div className='flex flex-col mt-6 sm:flex-row sm:items-center sm:w-52 sm:ml-auto'>
+          <div className='flex flex-col mt-6 sm:flex-row sm:items-center sm:justify-end sm:w-2/3 sm:ml-auto'>
             <button
               className='p-3 bg-purple-700 text-sm font-bold text-white rounded-lg sm:mr-3'
               type='submit'
             >
-              Add Feedback
+              Save Changes
             </button>
 
             <button
-              className='p-3 mt-2 bg-indigo-900 text-sm font-bold text-white rounded-lg sm:mt-0'
+              className='p-3 mt-2 bg-indigo-900 text-sm font-bold text-white rounded-lg sm:mt-0 sm:mr-3'
               onClick={(e) => {
                 e.preventDefault()
-                setDescription('')
-                setPickedCategory('')
-                setTitle('')
+                setTitle(requiredData.title)
+                setDescription(requiredData.description)
+                setPickedCategory(requiredData.category)
                 router.push('/')
               }}
             >
               Cancel
+            </button>
+
+            <button
+              className='p-3 mt-2 bg-red-500 text-sm font-bold text-white rounded-lg sm:mt-0'
+              onClick={(e) => {
+                e.preventDefault()
+                deleteRequest(requiredData.id)
+                router.push('/')
+              }}
+            >
+              Delete
             </button>
           </div>
         </form>
@@ -150,4 +173,4 @@ const NewFeedback = () => {
   )
 }
 
-export default NewFeedback
+export default Edit

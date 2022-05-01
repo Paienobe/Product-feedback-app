@@ -94,12 +94,12 @@ const Comment = ({ content, user, id, replies }) => {
                   <p>@{reply.user.username}</p>
                 </div>
               </div>
-              <p>
+              <div>
                 <span className='text-purple-700 font-semibold'>
                   @{user.username}
                 </span>{' '}
                 {reply?.content}
-              </p>
+              </div>
             </div>
           )
         })}

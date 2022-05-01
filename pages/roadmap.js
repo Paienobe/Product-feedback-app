@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import CategoryComponent from '../components/CategoryComponent'
+import Head from 'next/head'
 
 const Roadmap = () => {
   const { productRequests } = useGlobalContext()
@@ -38,6 +39,10 @@ const Roadmap = () => {
 
   return (
     <div className='bg-indigo-100 min-h-screen p-4 text-indigo-800'>
+      <Head>
+        <title>Roadmap</title>
+      </Head>
+
       <div className='bg-indigo-900 absolute left-0 right-0 top-0 p-4 text-white flex items-center justify-between lg:px-12'>
         <div>
           <Link href='/'>
