@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useGlobalContext } from '../context/GlobalContext'
 
 const Feedback = ({
@@ -13,7 +13,25 @@ const Feedback = ({
   upvotes,
 }) => {
   const { upvoteProductRequest } = useGlobalContext()
+
+  // const upvoteState = () => {
+  //   if (typeof window !== 'undefined') {
+  //     const neededData = localStorage.getItem('upvoteState')
+  //     if (neededData) {
+  //       return JSON.parse(neededData)
+  //     } else {
+  //       return false
+  //     }
+  //   }
+  // }
+
   const [upvoted, setUpvoted] = useState(false)
+
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     localStorage.setItem('upvoteState', upvoted)
+  //   }
+  // }, [upvoted])
 
   return (
     <div className='bg-white p-4 my-4 rounded-lg text-sm text-indigo-900 hover:scale-105 sm:relative sm:hover:scale-100 sm:hover:shadow-indigo-300 shadow-lg sm:text-base'>

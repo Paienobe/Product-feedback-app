@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import CommentsContainer from '../../components/CommentsContainer'
 import Link from 'next/link'
 import CommentInput from '../../components/CommentInput'
+import Head from 'next/head'
 
 const CommentsPage = () => {
   const router = useRouter()
@@ -14,6 +15,9 @@ const CommentsPage = () => {
   })
   return (
     <div className='min-h-screen bg-indigo-100 p-4 text-indigo-900 sm:p-8 lg:px-36'>
+      <Head>
+        <title>Comments</title>
+      </Head>
       <div className='flex items-center justify-between font-semibold text-sm'>
         <Link href='/'>
           <div className='flex items-center hover:cursor-pointer'>
@@ -21,10 +25,11 @@ const CommentsPage = () => {
             <p className='ml-3 text-indigo-900'>Go Back</p>
           </div>
         </Link>
-
-        <button className='text-white p-2 bg-indigo-700 rounded-lg text-sm font-semibold'>
-          Edit Feedback
-        </button>
+        <Link href={`/editfeedback/${router.query.id}`}>
+          <button className='text-white p-2 bg-indigo-700 rounded-lg text-sm font-semibold'>
+            Edit Feedback
+          </button>
+        </Link>
       </div>
 
       <div>

@@ -89,6 +89,30 @@ const reducer = (state, action) => {
     })
     return { ...state, productRequests: newReply }
   }
+
+  if (action.type === 'EDIT_REQUEST') {
+    let editedRequest = state.productRequests.map((request) => {
+      if (request.id === action.payload.id) {
+        return {
+          ...request,
+          title: action.payload.title,
+          description: action.payload.description,
+          category: action.payload.category,
+        }
+      } else {
+        return request
+      }
+    })
+
+    return { ...state, productRequests: editedRequest }
+  }
+
+  if (action.type === 'DELETE_REQUEST') {
+    let newRequests = state.productRequests.filter((request) => {
+      return request.id !== action.payload.id
+    })
+    return { ...state, productRequests: newRequests }
+  }
 }
 
 export default reducer
