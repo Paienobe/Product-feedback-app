@@ -1,4 +1,11 @@
+import data from '../data/data.json'
+
+export const initialState = data
+
 const reducer = (state, action) => {
+  if (action.type === 'INITIAL_STORAGE') {
+    return action.value
+  }
   if (action.type === 'ADD') {
     return {
       ...state,
@@ -21,10 +28,10 @@ const reducer = (state, action) => {
     let newUpvote = state.productRequests.map((request) => {
       if (request.id === action.payload.id) {
         if (action.payload.type === 'increase') {
-          return { ...request, upvotes: request.upvotes + 1 }
+          return { ...request, upvotes: request.upvotes + 1, upvoted: true }
         }
         if (action.payload.type === 'decrease') {
-          return { ...request, upvotes: request.upvotes - 1 }
+          return { ...request, upvotes: request.upvotes - 1, upvoted: false }
         }
       }
       return request
