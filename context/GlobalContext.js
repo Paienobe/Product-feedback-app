@@ -1,30 +1,26 @@
 import React, { useContext, useState, useReducer, useEffect } from 'react'
 import data from '../data/data.json'
-import reducer from '../reducer/reducer'
+import reducer, { initialState } from '../reducer/reducer'
 
 const AppContext = React.createContext()
-
-const initialState = data
-
-// const getDataFromLocalStorage = () => {
-//   if (typeof window !== 'undefined') {
-//     const requiredData = localStorage.getItem('initialState')
-//     if (requiredData) {
-//       return JSON.parse(requiredData)
-//     } else {
-//       return initialState
-//     }
-//   }
-// }
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     localStorage.setItem('initialState', JSON.stringify(state))
-  //   }
-  // }, [state])
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('appState'))) {
+      dispatch({
+        type: 'INITIAL_STORAGE',
+        value: JSON.parse(localStorage.getItem('appState')),
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    if (state !== initialState) {
+      localStorage.setItem('appState', JSON.stringify(state))
+    }
+  }, [state])
 
   const addProductRequest = (category, details, title) => {
     dispatch({ type: 'ADD', payload: { category, details, title } })
