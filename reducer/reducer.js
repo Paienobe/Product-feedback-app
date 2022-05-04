@@ -128,6 +128,14 @@ const reducer = (state, action) => {
       sortBy: selectedSort,
     }
   }
+
+  if (action.type === 'FILTER') {
+    let selectedFilter = action.payload.choice
+    return {
+      ...state,
+      filterBy: selectedFilter,
+    }
+  }
 }
 
 export default reducer

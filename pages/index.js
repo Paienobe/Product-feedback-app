@@ -4,11 +4,12 @@ import Header from '../components/Header'
 import FeedbackHeader from '../components/FeedbackHeader'
 import { useGlobalContext } from '../context/GlobalContext'
 import Feedback from '../components/Feedback'
+import EmptyFilter from '../components/EmptyFilter'
 
 export default function Home() {
-  const { productRequests, sortBy } = useGlobalContext()
+  const { productRequests, sortBy, filterBy } = useGlobalContext()
 
-  const compareUpvotes = (itemA, itemB) => {
+  const sortingFunction = (itemA, itemB) => {
     if (sortBy === 'Most Upvotes') {
       if (itemA.upvotes < itemB.upvotes) {
         return 1
@@ -36,6 +37,10 @@ export default function Home() {
     }
   }
 
+  const filteredRequest = productRequests.filter((request) => {
+    return request.category.toLowerCase() === filterBy?.toLowerCase()
+  })
+
   return (
     <div className='bg-indigo-100 min-h-screen overflow-x-hidden'>
       <Head>
@@ -48,10 +53,24 @@ export default function Home() {
         <Header />
         <div className='p-4 lg:w-4/5 lg:ml-auto relative lg:mt-8'>
           <FeedbackHeader />
-          <div className='mt-14 sm:mt-20 sm:mx-4'>
-            {productRequests?.sort(compareUpvotes)?.map((request) => {
-              return <Feedback key={request.id} {...request} />
-            })}
+          <div>
+            {filterBy !== 'All' ? (
+              <div className='mt-14 sm:mt-20 sm:mx-4'>
+                {filteredRequest?.sort(sortingFunction)?.map((request) => {
+                  return <Feedback key={request.id} {...request} />
+                })}
+
+                {filteredRequest?.sort(sortingFunction).length < 1 && (
+                  <EmptyFilter />
+                )}
+              </div>
+            ) : (
+              <div className='mt-14 sm:mt-20 sm:mx-4'>
+                {productRequests?.sort(sortingFunction)?.map((request) => {
+                  return <Feedback key={request.id} {...request} />
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>

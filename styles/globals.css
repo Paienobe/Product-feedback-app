@@ -7,4 +7,5 @@
 * {
   font-family: 'Jost', sans-serif;
   transition: all 0.25s ease-in-out;
+  outline: none;
 }
