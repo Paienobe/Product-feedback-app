@@ -23,6 +23,7 @@ const FeedbackHeader = () => {
             src='/shared/icon-arrow-down.svg'
             width={15}
             height={10}
+            style={{ cursor: 'pointer' }}
             onClick={() => setShowSorts(!showSorts)}
           />
         </div>

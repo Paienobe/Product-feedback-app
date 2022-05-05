@@ -1,5 +1,4 @@
-import React, { useContext, useState, useReducer, useEffect } from 'react'
-import data from '../data/data.json'
+import React, { useContext, useReducer, useEffect } from 'react'
 import reducer, { initialState } from '../reducer/reducer'
 
 const AppContext = React.createContext()
@@ -24,8 +23,13 @@ const AppProvider = ({ children }) => {
 
   const sortingType = (sort) => dispatch({ type: 'SORT', payload: { sort } })
 
+  const categoryFiltering = (choice) => {
+    dispatch({ type: 'FILTER', payload: { choice } })
+  }
+
   useEffect(() => {
     sortingType('Most Upvotes')
+    categoryFiltering('All')
   }, [])
 
   const addProductRequest = (category, details, title) => {
@@ -66,6 +70,7 @@ const AppProvider = ({ children }) => {
         editRequest,
         deleteRequest,
         sortingType,
+        categoryFiltering,
       }}
     >
       {children}

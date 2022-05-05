@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { GoPrimitiveDot } from 'react-icons/go'
 import Link from 'next/link'
+import { useGlobalContext } from '../context/GlobalContext'
 
 const Header = () => {
   const category = ['All', 'UI', 'UX', 'Enhancement', 'Bug', 'Feature']
   const [showMenu, setShowMenu] = useState(false)
+  const { filterBy, categoryFiltering } = useGlobalContext()
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -64,7 +66,11 @@ const Header = () => {
               return (
                 <button
                   key={index}
-                  className='bg-indigo-100 p-2 px-3 rounded-lg m-2 text-xs font-bold'
+                  className={`bg-indigo-100 p-2 px-3 rounded-lg m-2 text-xs font-bold ${
+                    filterBy?.toLowerCase() === item.toLowerCase() &&
+                    'bg-indigo-600 text-white'
+                  }`}
+                  onClick={() => categoryFiltering(item)}
                 >
                   {item}
                 </button>
