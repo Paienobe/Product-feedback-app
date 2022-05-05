@@ -6,14 +6,36 @@ import { useGlobalContext } from '../context/GlobalContext'
 import Feedback from '../components/Feedback'
 
 export default function Home() {
-  const { productRequests } = useGlobalContext()
+  const { productRequests, sortBy } = useGlobalContext()
+
   const compareUpvotes = (itemA, itemB) => {
-    if (itemA.upvotes < itemB.upvotes) {
-      return 1
-    } else if (itemA.upvotes === itemB.upvotes) {
-      return 0
-    } else return -1
+    if (sortBy === 'Most Upvotes') {
+      if (itemA.upvotes < itemB.upvotes) {
+        return 1
+      } else if (itemA.upvotes === itemB.upvotes) {
+        return 0
+      } else return -1
+    } else if (sortBy === 'Least Upvotes') {
+      if (itemA.upvotes > itemB.upvotes) {
+        return 1
+      } else if (itemA.upvotes === itemB.upvotes) {
+        return 0
+      } else return -1
+    } else if (sortBy === 'Most Comments') {
+      if (itemA.comments?.length < itemB.comments?.length) {
+        return 1
+      } else if (itemA.comments?.length === itemB.comments?.length) {
+        return 0
+      } else return -1
+    } else if (sortBy === 'Least Comments') {
+      if (itemA.comments?.length > itemB.comments?.length) {
+        return 1
+      } else if (itemA.comments?.length === itemB.comments?.length) {
+        return 0
+      } else return -1
+    }
   }
+
   return (
     <div className='bg-indigo-100 min-h-screen overflow-x-hidden'>
       <Head>

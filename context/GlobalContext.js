@@ -22,6 +22,12 @@ const AppProvider = ({ children }) => {
     }
   }, [state])
 
+  const sortingType = (sort) => dispatch({ type: 'SORT', payload: { sort } })
+
+  useEffect(() => {
+    sortingType('Most Upvotes')
+  }, [])
+
   const addProductRequest = (category, details, title) => {
     dispatch({ type: 'ADD', payload: { category, details, title } })
   }
@@ -59,6 +65,7 @@ const AppProvider = ({ children }) => {
         addReplies,
         editRequest,
         deleteRequest,
+        sortingType,
       }}
     >
       {children}

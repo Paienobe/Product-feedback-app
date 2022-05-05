@@ -120,6 +120,14 @@ const reducer = (state, action) => {
     })
     return { ...state, productRequests: newRequests }
   }
+
+  if (action.type === 'SORT') {
+    let selectedSort = action.payload.sort
+    return {
+      ...state,
+      sortBy: selectedSort,
+    }
+  }
 }
 
 export default reducer
