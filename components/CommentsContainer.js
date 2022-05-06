@@ -8,7 +8,7 @@ const Comments = ({ comments }) => {
       </h2>
       <div className='mt-4'>
         {comments.map((comment) => {
-          return <Comment {...comment} key={comment.id} />
+          return <Comment {...comment} key={comment?.id} />
         })}
       </div>
     </div>

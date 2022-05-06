@@ -136,6 +136,52 @@ const reducer = (state, action) => {
       filterBy: selectedFilter,
     }
   }
+
+  if (action.type === 'DELETE_REPLY') {
+    let result = state.productRequests.map((request) => {
+      const updatedComments = request.comments.map((comment) => {
+        if (comment?.replies) {
+          const updatedReplies = comment.replies.filter((reply) => {
+            return reply.id !== action.payload.id
+          })
+          return { ...comment, replies: updatedReplies }
+        } else {
+          return comment
+        }
+      })
+      return { ...request, comments: updatedComments }
+    })
+    return { ...state, productRequests: result }
+  }
+
+  if (action.type === 'REPLY_A_REPLY') {
+    let result = state.productRequests.map((request) => {
+      let updatedComments = request.comments.map((comment) => {
+        if (comment?.replies) {
+          let updatedReplies = comment.replies.map((reply) => {
+            if (reply.id === action.payload.id) {
+              let newReply = {
+                id: new Date().getTime(),
+                content: action.payload.message,
+                user: state.currentUser,
+                nameOfReplied: reply.user.username,
+              }
+              return newReply
+            } else return reply
+          })
+          return {
+            ...comment,
+            replies: [...new Set([...comment.replies, ...updatedReplies])],
+          }
+        } else {
+          return comment
+        }
+      })
+      return { ...request, comments: updatedComments }
+    })
+    return { ...state, productRequests: result }
+    return state
+  }
 }
 
 export default reducer

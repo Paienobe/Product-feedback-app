@@ -59,6 +59,14 @@ const AppProvider = ({ children }) => {
     dispatch({ type: 'DELETE_REQUEST', payload: { id } })
   }
 
+  const deleteReply = (id) => {
+    dispatch({ type: 'DELETE_REPLY', payload: { id } })
+  }
+
+  const replyReplies = (id, message) => {
+    dispatch({ type: 'REPLY_A_REPLY', payload: { id, message } })
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -71,6 +79,8 @@ const AppProvider = ({ children }) => {
         deleteRequest,
         sortingType,
         categoryFiltering,
+        deleteReply,
+        replyReplies,
       }}
     >
       {children}

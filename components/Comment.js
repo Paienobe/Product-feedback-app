@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useGlobalContext } from '../context/GlobalContext'
+import Reply from './Reply'
 
 const Comment = ({ content, user, id, replies }) => {
   const { addReplies } = useGlobalContext()
@@ -13,14 +14,14 @@ const Comment = ({ content, user, id, replies }) => {
       <div className='flex items-center justify-between'>
         <div className='flex items-center'>
           <Image
-            src={user.image}
+            src={user?.image}
             width={40}
             height={40}
             className='rounded-full'
           />
           <div className='ml-2 text-sm sm:ml-6 sm:text-base'>
-            <p className='font-semibold text-indigo-900'>{user.name}</p>
-            <p>@{user.username}</p>
+            <p className='font-semibold text-indigo-900'>{user?.name}</p>
+            <p>@{user?.username}</p>
           </div>
         </div>
         <p
@@ -78,30 +79,7 @@ const Comment = ({ content, user, id, replies }) => {
       )}
       <div className='pl-8 text-sm border-2 border-transparent border-l-indigo-100 mb-4 sm:pl-24 lg:pl-28 sm:text-base'>
         {replies?.map((reply) => {
-          return (
-            <div key={reply?.id} className='mb-4'>
-              <div className='flex items-center'>
-                <Image
-                  src={reply?.user?.image}
-                  width={40}
-                  height={40}
-                  className='rounded-full'
-                />
-                <div className='ml-3 mb-2'>
-                  <p className='font-semibold text-indigo-900'>
-                    {reply.user.name}
-                  </p>
-                  <p>@{reply.user.username}</p>
-                </div>
-              </div>
-              <div>
-                <span className='text-purple-700 font-semibold'>
-                  @{user.username}
-                </span>{' '}
-                {reply?.content}
-              </div>
-            </div>
-          )
+          return <Reply key={reply?.id} replyingTo={user} {...reply} />
         })}
       </div>
     </div>
